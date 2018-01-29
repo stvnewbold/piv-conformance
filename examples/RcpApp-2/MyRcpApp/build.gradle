@@ -1,0 +1,29 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+  }
+
+  dependencies {
+    classpath "org.akhikhl.wuff:wuff-plugin:$wuff_version"
+  }
+}
+
+repositories {
+  mavenLocal()
+  jcenter()
+  maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.akhikhl.wuff.eclipse-rcp-app'
+
+products {
+  product platform: 'linux', arch: 'x86_32'
+  product platform: 'linux', arch: 'x86_64'
+  product platform: 'windows', arch: 'x86_32'
+  product platform: 'windows', arch: 'x86_64'
+  archiveProducts = true
+}
+

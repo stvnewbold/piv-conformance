@@ -1,0 +1,1 @@
+See wiki: [Manifest attributes in build.gradle](../../../../wiki/Manifest-attributes-in-build.gradle).

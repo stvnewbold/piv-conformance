@@ -1,0 +1,42 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+  }
+
+  dependencies {
+    classpath "org.akhikhl.wuff:wuff-plugin:$wuff_version"
+  }
+}
+
+repositories {
+  mavenLocal()
+  jcenter()
+  maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.akhikhl.wuff.osgi-bundle'
+
+description = 'this is example project'
+
+jar {
+  manifest {
+    instruction 'Bundle-SymbolicName', 'blabla'
+    instruction 'Bundle-Name', 'hurray! hurray!'
+    instruction 'Bundle-Version', '999'
+    instruction 'Bundle-ManifestVersion', '22'
+    instruction 'Bnd-LastModified', '9999999999999'                                    
+    instruction 'Created-By', 'Dr. Who'
+    instruction 'Tool', 'kekek'
+    instruction 'Bundle-ClassPath', 'somefolder', 'anotherfolder'
+    instruction 'Require-Bundle', 'ch.qos.logback.classic'
+    instruction 'My-Attribute', 'test'
+    instruction 'Project-Info', "${project.name} compiled on ${new Date()}"
+  }
+}
+
+wuff {
+  filterManifest = true
+}

@@ -1,0 +1,1 @@
+See wiki: [Manifest attributes in MANIFEST.MF](../../../../wiki/Manifest-attributes-in-MANIFEST.MF).

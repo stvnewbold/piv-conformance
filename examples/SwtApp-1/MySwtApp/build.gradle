@@ -1,0 +1,24 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+  }
+
+  dependencies {
+    classpath "org.akhikhl.wuff:wuff-plugin:$wuff_version"
+  }
+}
+
+repositories {
+  mavenLocal()
+  jcenter()
+  maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.akhikhl.wuff.swt-app'
+
+ext {
+  mainClass = 'myswtapp.Main'
+}
