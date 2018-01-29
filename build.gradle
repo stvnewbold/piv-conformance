@@ -5,8 +5,8 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:3.1.0'
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.1'
+    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.3'
   }
 }
 
@@ -26,13 +26,13 @@ if( !hasProperty( 'bintrayUser' ) )
 if( !hasProperty( 'bintrayKey' ) )
   ext.bintrayKey = ''
 
-task('build')
+task('custombuild')
 
 // we exclude buildExamples from main build,
 // because building all examples might be too slow
 task('buildExamples', type: GradleBuild) {
   dir = file('examples')
-  tasks = [ 'build' ]
+  tasks = [ 'custombuild' ]
 }
 
 // we exclude cleanExamples from main build,
@@ -67,4 +67,3 @@ artifactory {
     }
   }
 }
-

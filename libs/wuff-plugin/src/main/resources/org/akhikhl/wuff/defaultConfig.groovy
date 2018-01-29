@@ -4,7 +4,7 @@ wuff {
 
   localMavenRepositoryDir = new File(wuffDir, 'm2_repository')
 
-  selectedEclipseVersion = '4.4.2'
+  selectedEclipseVersion = '4.6.2'
 
   def suffix_os = [ 'linux': 'linux-gtk', 'macosx': 'macosx-cocoa', 'windows': 'win32' ]
   def suffix_arch = [ 'x86_32': '', 'x86_64': '-x86_64' ]
@@ -398,7 +398,7 @@ wuff {
       languagePackTemplate '${eclipseMirror}/eclipse//technology/babel/babel_language_packs/R0.12.1/luna/BabelLanguagePack-eclipse-${language}_4.4.0.v20141223043836.zip'
     }
   }
-  
+
   eclipseVersion('4.4.2') {
     extendsFrom '4.4'
 
@@ -417,9 +417,9 @@ wuff {
       languagePackTemplate '${eclipseMirror}/eclipse//technology/babel/babel_language_packs/R0.12.1/luna/BabelLanguagePack-eclipse-${language}_4.4.0.v20141223043836.zip'
     }
   }
-  
+
   eclipseVersion('4.5') {
-    
+
     extendsFrom '4.4.2'
 
     eclipseMavenGroup = 'eclipse-mars'
@@ -435,7 +435,42 @@ wuff {
 
       languagePackTemplate '${eclipseMirror}/eclipse//technology/babel/babel_language_packs/R0.13.0/mars/BabelLanguagePack-eclipse-${language}_4.5.0.v20150804081228.zip'
     }
-  }  
+  }
+
+  eclipseVersion('4.5.2') {
+
+    extendsFrom '4.5'
+
+    eclipseMavenGroup = 'eclipse-mars-sr2'
+
+    eclipseMirror = 'http://mirror.netcologne.de'
+
+    eclipseArchiveMirror = 'http://archive.eclipse.org'
+
+    sources {
+
+      source "${eclipseMirror}/eclipse//technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-${suffix_os[current_os]}${suffix_arch[current_arch]}.${fileExt_os[current_os]}"
+      source "${eclipseMirror}/eclipse//eclipse/downloads/drops4/R-4.5.2-201602121500/eclipse-SDK-4.5.2-${suffix_os[current_os]}${suffix_arch[current_arch]}.${fileExt_os[current_os]}", sourcesOnly: true
+
+      languagePackTemplate '${eclipseMirror}/eclipse//technology/babel/babel_language_packs/R0.13.1/mars/BabelLanguagePack-eclipse-${language}_4.5.0.v20151128060001.zip'
+    }
+  }
+
+  eclipseVersion('4.6.2') {
+
+    eclipseMavenGroup = 'eclipse-neon-sr2'
+
+    eclipseMirror = 'http://ftp.fau.de'
+    eclipseArchiveMirror = 'http://ftp.fau.de'
+
+    sources {
+
+      source "${eclipseMirror}/eclipse/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-${suffix_os[current_os]}${suffix_arch[current_arch]}.${fileExt_os[current_os]}"
+      source "${eclipseMirror}/eclipse/eclipse/downloads/drops4/R-4.6.2-201611241400/eclipse-SDK-4.6.2-${suffix_os[current_os]}${suffix_arch[current_arch]}.${fileExt_os[current_os]}", sourcesOnly: true
+
+      languagePackTemplate '${eclipseMirror}/eclipse//technology/babel/babel_language_packs/R0.14.1/mars/BabelLanguagePack-eclipse-${language}_4.6.0.v20161126060001.zip'
+    }
+  }
 
   eclipseVersion('efxclipse-1.2') {
       eclipseMavenGroup = 'efxclipse-1_2'

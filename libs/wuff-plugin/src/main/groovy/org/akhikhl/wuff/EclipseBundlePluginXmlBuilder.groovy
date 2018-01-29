@@ -25,7 +25,7 @@ class EclipseBundlePluginXmlBuilder extends PluginXmlBuilder {
   @Override
   protected void populate(MarkupBuilder pluginXml) {
     populatePerspectives(pluginXml)
-    populateViews(pluginXml)
+    //populateViews(pluginXml)
   }
 
   protected void populatePerspectives(MarkupBuilder pluginXml) {

@@ -3,15 +3,15 @@ apply from: 'unpuzzle.plugin'
 unpuzzle {
   unpuzzleDir = new File(System.getProperty('user.home'), '.wuff')
   localMavenRepositoryDir = new File(unpuzzleDir, 'm2_repository')
-  selectedEclipseVersion = '4.4.2'
+  selectedEclipseVersion = '4.6.2'
 }
 
 if(!tasks.findByName('build'))
   task 'build'
-  
+
 if(!tasks.findByName('install'))
   task 'install'
-  
+
 if(!tasks.findByName('uploadArchives'))
   task 'uploadArchives'
 
@@ -25,4 +25,3 @@ afterEvaluate {
 }
 
 defaultTasks 'install'
-
