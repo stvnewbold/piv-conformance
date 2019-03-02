@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="gov.gsa.e4.rcp.wizard.feature"
+      label="Feature"
+      version="1.0.0.qualifier"
+      provider-name="GSA">
+
+   <description url="https://github.com/GSA/piv-conformance">
+      Wizard path through piv conformance tool
+   </description>
+
+   <copyright url="https://github.com/GSA/piv-conformance">
+      TODO: license description here
+   </copyright>
+
+   <license url="https://github.com/GSA/piv-conformance">
+      TODO: license description here
+   </license>
+
+   <plugin
+         id="gov.gsa.e4.rcp.wizard"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
