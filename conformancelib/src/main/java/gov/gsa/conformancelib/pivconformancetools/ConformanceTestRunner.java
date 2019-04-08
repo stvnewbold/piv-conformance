@@ -9,16 +9,13 @@ import gov.gsa.conformancelib.configuration.TestCaseModel;
 import gov.gsa.conformancelib.configuration.TestStepModel;
 import gov.gsa.conformancelib.junitoptions.Theme;
 //import gov.gsa.conformancelib.tests.SignedObjectVerificationTests;
-import gov.gsa.pivconformance.card.client.APDUConstants;
-import gov.gsa.pivconformance.card.client.CardCapabilityContainer;
-import gov.gsa.pivconformance.card.client.MiddlewareStatus;
-import gov.gsa.pivconformance.card.client.PIVDataObject;
-import gov.gsa.pivconformance.card.client.PIVDataObjectFactory;
+
 import gov.gsa.pivconformance.utils.PCSCUtils;
-import gov.gsa.pivconformance.utils.VersionUtils;
-import gov.gsa.conformancelib.pivconformancetools.junitconsole.VerboseTreePrintingListener;
+import gov.gsa.pivconformance.utils.*;
+import gov.gsa.conformancelib.tests.ConformanceTestException;
+import gov.gsa.conformancelib.utilities.CardUtils;
+
 import org.apache.commons.cli.*;
-import org.apache.commons.codec.binary.Hex;
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.launcher.*;
 //import org.junit.platform;
@@ -42,7 +39,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
 public class ConformanceTestRunner {
@@ -146,28 +142,11 @@ public class ConformanceTestRunner {
                 s_logger.info("No reader was specified. Using the first available reader.");
                 css.setReaderIndex(0);
             } else {
-                int curr = -1;
-                int found = curr;
-                List<String> readers = PCSCUtils.GetConnectedReaders();
-                for(String reader : readers) {
-                    curr++;
-                    if(reader.toUpperCase().startsWith(readerName.toUpperCase())) {
-                        s_logger.info("Found reader matching {} from configuration", curr);
-                        found = curr;
-                        break;
-                    }
-                }
-                if(found == -1) {
-                    s_logger.warn("No reader matching {} is connected to the system. Using the first reader available.", readerName);
-                    css.setReaderIndex(0);
-                } else {
-                    css.setReaderIndex(found);
-                }
+            	CardUtils.setUpPivAppHandleInSingleton();
                 String pinFromConfig = rs.getString("ApplicationPIN");
                 if(pinFromConfig != null && !pinFromConfig.isEmpty()) {
                     css.setApplicationPin(pinFromConfig);
                 }
-                
                 if(CardInfoController.getEncodedRetries() > 1) {
                 	if(!CardInfoController.checkPin(true)) {
                 		s_logger.error("Application PIN is invalid");
@@ -180,11 +159,9 @@ public class ConformanceTestRunner {
                 	System.exit(1);
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConformanceTestException e) {
             s_logger.error("Failed to read configuration", e);
         }
-
-        
         
         ConformanceTestDatabase ctd = new ConformanceTestDatabase(conn);
         PrintWriter out = new PrintWriter(System.out);
@@ -256,7 +233,7 @@ public class ConformanceTestRunner {
                 	
                 }
                 suiteBuilder.selectors(discoverySelectors);
-                suiteBuilder.configurationParameter("TestCaseIdentifier", "TestCaseIdentifier");
+                suiteBuilder.configurationParameter("TestCaseIdentifier", testNameFromConfig);
                 LauncherDiscoveryRequest ldr = suiteBuilder.build();
                 
                 Launcher l = LauncherFactory.create();
