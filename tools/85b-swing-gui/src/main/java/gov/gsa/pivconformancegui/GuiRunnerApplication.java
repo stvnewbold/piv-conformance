@@ -8,9 +8,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
+import gov.gsa.conformancelib.configuration.ConformanceTestDatabase;
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+
 public class GuiRunnerApplication {
 
-	private JFrame frame;
+	private JFrame m_mainFrame;
 
 	/**
 	 * Launch the application.
@@ -20,7 +25,13 @@ public class GuiRunnerApplication {
 			public void run() {
 				try {
 					GuiRunnerApplication window = new GuiRunnerApplication();
-					window.frame.setVisible(true);
+					GuiRunnerAppController c = GuiRunnerAppController.getInstance();
+					c.setApp(window);
+					ConformanceTestDatabase db = new ConformanceTestDatabase(null);
+					db.openDatabaseInFile("../../conformancelib/testdata/icam_test.db");
+					c.setTestDatabase(db);
+					window.m_mainFrame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,12 +50,12 @@ public class GuiRunnerApplication {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		m_mainFrame = new JFrame();
+		m_mainFrame.setBounds(100, 100, 450, 300);
+		m_mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		m_mainFrame.setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
@@ -81,6 +92,17 @@ public class GuiRunnerApplication {
 		
 		JMenuItem mntmAboutPivCard = new JMenuItem("About PIV Card Conformance Tool");
 		mnHelp.add(mntmAboutPivCard);
+		
+		TestTreePanel panel = new TestTreePanel();
+		m_mainFrame.getContentPane().add(panel, BorderLayout.WEST);
+	}
+
+	public JFrame getMainFrame() {
+		return m_mainFrame;
+	}
+
+	public void setMainFrame(JFrame mainFrame) {
+		m_mainFrame = mainFrame;
 	}
 
 }
