@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS "SystemSettings" (
 	`SettingsGroup`	TEXT,
 	`GPMasterKey`	TEXT
 );
-INSERT INTO SystemSettings VALUES(NULL,'OMNIKEY AG Cardman 3121','123456','/tmp',NULL,NULL);
+INSERT INTO SystemSettings VALUES(NULL,'OMNIKEY CardMan 3821 0','123456','/tmp',NULL,NULL);
 DELETE FROM sqlite_sequence;
 INSERT INTO sqlite_sequence VALUES('TestsToSteps',9);
 INSERT INTO sqlite_sequence VALUES('TestSteps',10);
