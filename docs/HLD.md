@@ -13,7 +13,7 @@ The CCT runs on the following platforms when an appropriate JRE (8.0 or later) a
 - Red Hat Enterprise Linux 6 or later
 - Ubuntu LTS release 16.04 or later
 
-The CCT can be modified and compiled on any platform where JDK 8.0 or later is installed. Note that some dependencies used by the CCT will require an appropriate C++ compiler if native code is to be changed; pre-built native components will be made availabe for the platforms listed above.
+The CCT can be modified and compiled on any platform where JDK 8.0 or later is installed. Note that some dependencies used by the CCT will require an appropriate C++ compiler if native code is to be changed; a pre-built executable jar file will be made available for the platforms listed above.
 
 ### Test Notes ###
 
@@ -27,11 +27,9 @@ The Card Conformance tool has three principle modes of operation:
 - Test Execution
 - Report Generation
 
-While the tool will offer both a graphical and a command line user-interface, not all operations will be available from the command-line interface. In particular, some test configuration operations may either require the use of the GUI or manual edits to a configuration file. The purpose of the command line interface is to allow "headless" execution of pre-configured sets of tests.
+The tool leverages SQL databases for configuration of tests, and there will be four database options with the jar download; PIV, PIV-I, APL test card PIV, APL test card PIV-I.  Agency users will be expected to use either PIV or PIV-I databases generally, and the tool will default to the PIV database.  Databases are configured via a script run against a spreadsheet with test cases listed.
 
 ![Design Overview](diagrams/overview.png  )
-
-Both interfaces will share a common library for loading, configuring and executing tests. This library will depend on several subcomponents along with the facilities provided by the JRE and the OS. Where possible, the subcomponents will reuse publicly available open source libraries.
 
 ## External Interfaces ##
 
@@ -48,22 +46,9 @@ The GUI will allow the user to:
 
 - Alter the selected set of tests
 - Edit configurable parameters for the tests
-- View the test run history
-- Clear the test run history
-- View test reports
-- Export test reports
-- View test logs
-	- Filter test logs
-- Export test logs
-	- Including filtered views of logs
-- Configure logging settings for both GUI tool operation and test execution
+- View test reports in HTML
+- View testing log
 - Execute tests with a progress display
-
-### Command Line ###
-
-The CCT command line will execute tests in an existing CCTS document, as configured by the CCT GUI. It will allow logging settings to be configured using textual properties files (which may be prepared in the GUI) and will store the results of the test runs either in the CCTS document it runs from or in a copy of the CCTS document, as determined by arguments supplied on the command line.
-
-It will also offer the ability to export test reports from test runs within a CCTS document.
 
 ### CCTS Document ###
 
